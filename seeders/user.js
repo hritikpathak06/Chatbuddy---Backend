@@ -26,6 +26,7 @@ const createUser = async (numUsers) => {
   }
 };
 
+
 const createSingleChat = async (numChats) => {
   const users = await User.find().select("_id");
 

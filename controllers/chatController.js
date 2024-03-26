@@ -76,9 +76,12 @@ export const getMyChats = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Internal Server Error",
+      error:error.message
     });
   }
 };
+
+
 
 // Get My Groups Controller
 export const getMyGroups = async (req, res) => {
@@ -501,6 +504,7 @@ export const deleteChat = async (req, res) => {
   }
 };
 
+
 // Get Messages Controller
 export const getMessages = async (req, res) => {
   try {
@@ -519,7 +523,7 @@ export const getMessages = async (req, res) => {
         .lean(),
       Message.countDocuments({ chat: chatId }),
     ]);
-    const totalPages = Math.ceil(totalMessagesCount / resultPerPage);
+    const totalPages = Math.ceil(totalMessagesCount / resultPerPage) || 0;
     return res.status(200).json({
       success: true,
       messages: messages.reverse(),
